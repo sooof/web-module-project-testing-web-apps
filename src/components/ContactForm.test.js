@@ -48,32 +48,33 @@ test('renders THREE error messages if user enters no values into any fields.', a
     const firstNameErr = screen.getByLabelText(/First Name*/i);
     userEvent.type(firstNameErr, "R");
 
-    const lastNameErr = screen.getByLabelText(/Last Name*/i);
-    userEvent.type(lastNameErr, " ");
+    // const lastNameErr = screen.getByLabelText(/Last Name*/i);
+    // userEvent.type(lastNameErr, "");
 
     const emailErr = screen.getByLabelText(/Email*/i);
     userEvent.type(emailErr, "s");
 
     const errorMessages = await screen.findAllByTestId('error');
-    expect(errorMessages).toHaveLength(1);
-    console.log(errorMessages.length)
+    expect(errorMessages).toHaveLength(2);
+    // console.log(errorMessages.length)
     
 });
 
-// test('renders ONE error message if user enters a valid first name and last name but no email.', async () => {
-//     render(<ContactForm/>);
+test('renders ONE error message if user enters a valid first name and last name but no email.', async () => {
+    render(<ContactForm/>);
 
-//     const firstName = screen.getByLabelText(/First Name*/i);
-//     userEvent.type(firstName, "Ray");
+    const firstName1 = screen.getByLabelText(/First Name*/i);
+    userEvent.type(firstName1, "Ray");
 
-//     const lastName = screen.getByLabelText(/Last Name*/i);
-//     userEvent.type(lastName, "Gate");
+    const lastName1 = screen.getByLabelText(/Last Name*/i);
+    userEvent.type(lastName1, "Gate");
 
-//     const message = screen.getByLabelText(/Message/i);
-//     userEvent.type(message, "Hello");
-//     const errorMessages = await screen.findAllByTestId('error');
-//     expect(errorMessages).toHaveLength(1);
-// });
+    const message1 = screen.getByLabelText(/Message/i);
+    userEvent.type(message1, "Hello");
+    const errorMessages = await screen.findAllByTestId('error');
+    // expect(errorMessages).toHaveLength(1);
+    console.log("Error ",errorMessages.length)
+});
 
 // test('renders "email must be a valid email address" if an invalid email is entered', async () => {
 //     render(<ContactForm/>);
