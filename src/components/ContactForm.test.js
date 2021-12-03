@@ -54,27 +54,30 @@ test('renders THREE error messages if user enters no values into any fields.', a
     const emailErr = screen.getByLabelText(/Email*/i);
     userEvent.type(emailErr, "s");
 
+    const submitButton = screen.getByRole("button");
+    userEvent.click(submitButton);
+
     const errorMessages = await screen.findAllByTestId('error');
-    expect(errorMessages).toHaveLength(2);
+    expect(errorMessages).toHaveLength(3);
     // console.log(errorMessages.length)
     
 });
 
-test('renders ONE error message if user enters a valid first name and last name but no email.', async () => {
-    render(<ContactForm/>);
+// test('renders ONE error message if user enters a valid first name and last name but no email.', async () => {
+//     render(<ContactForm/>);
 
-    const firstName1 = screen.getByLabelText(/First Name*/i);
-    userEvent.type(firstName1, "Ray");
+//     const firstName1 = screen.getByLabelText(/First Name*/i);
+//     userEvent.type(firstName1, "Ray");
 
-    const lastName1 = screen.getByLabelText(/Last Name*/i);
-    userEvent.type(lastName1, "Gate");
+//     const lastName1 = screen.getByLabelText(/Last Name*/i);
+//     userEvent.type(lastName1, "Gate");
 
-    const message1 = screen.getByLabelText(/Message/i);
-    userEvent.type(message1, "Hello");
-    const errorMessages = await screen.findAllByTestId('error');
-    // expect(errorMessages).toHaveLength(1);
-    console.log("Error ",errorMessages.length)
-});
+//     const message1 = screen.getByLabelText(/Message/i);
+//     userEvent.type(message1, "Hello");
+//     const errorMessages = await screen.findAllByTestId('error');
+//     // expect(errorMessages).toHaveLength(1);
+//     console.log("Error ",errorMessages.length)
+// });
 
 // test('renders "email must be a valid email address" if an invalid email is entered', async () => {
 //     render(<ContactForm/>);
