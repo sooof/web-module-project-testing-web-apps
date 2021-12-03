@@ -79,25 +79,27 @@ test('renders ONE error message if user enters a valid first name and last name 
     console.log("Error ",errorMessages.length)
 });
 
-// test('renders "email must be a valid email address" if an invalid email is entered', async () => {
-//     render(<ContactForm/>);
+test('renders "email must be a valid email address" if an invalid email is entered', async () => {
+    render(<ContactForm/>);
 
 
-//     const firstName = screen.getByLabelText(/First Name*/i);
-//     userEvent.type(firstName, "sooof");
+    const firstName = screen.getByLabelText(/First Name*/i);
+    userEvent.type(firstName, "sooof");
 
-//     const email = screen.getByLabelText(/Email*/i);
-//     userEvent.type(email, "sooof@me.com");
+    const email = screen.getByLabelText(/Email*/i);
+    userEvent.type(email, "sooof@me");
 
-//     const message = screen.getByLabelText(/Message/i);
-//     userEvent.type(message, "Hello");
+    const message = screen.getByLabelText(/Message/i);
+    userEvent.type(message, "Hello");
 
-//     const button = screen.getByRole("button");
-//     userEvent.click(button);
+    const button = screen.getByRole("button");
+    userEvent.click(button);
 
-//     const errorMessages = await screen.findAllByTestId('error');
-//     expect(errorMessages).toHaveLength(1);
-// });
+    // const errorMessages = await screen.findAllByTestId('error');
+    // expect(errorMessages).toHaveLength(1);
+    const errorMessage = await screen.findByText(/email must be a valid email address/i);
+    expect(errorMessage).toBeInTheDocument();
+});
 
 // test('renders "lastName is a required field" if an last name is not entered and the submit button is clicked', async () => {
 //     render(<ContactForm/>);
