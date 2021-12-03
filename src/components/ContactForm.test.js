@@ -25,7 +25,7 @@ test('renders ONE error message if user enters less then 5 characters into first
     render(<ContactForm/>)
 
     const firstName = screen.getByLabelText(/First Name*/i);
-    userEvent.type(firstName, "Sooof");
+    userEvent.type(firstName, "Soo");
 
     const lastName = screen.getByLabelText(/Last Name*/i);
     userEvent.type(lastName, "Gate");
@@ -128,8 +128,58 @@ test('renders "lastName is a required field" if an last name is not entered and 
 test('renders all firstName, lastName and email text when submitted. Does NOT render message if message is not submitted.', async () => {
     render(<ContactForm/>);
 
+
+    const firstName = screen.getByLabelText(/First Name*/i);
+    userEvent.type(firstName, "Sooof");
+
+    const lastName = screen.getByLabelText(/Last Name*/i);
+    userEvent.type(lastName, "Gate");
+
+    const email = screen.getByLabelText(/Email*/i);
+    userEvent.type(email, "sooof@me.com");
+
+    const button = screen.getByRole("button");
+    userEvent.click(button);
+
+    await waitFor(()=> {
+   
+        const messageDisplay = screen.queryByTestId("messageDisplay");
+
+
+        expect(firstName).toBeInTheDocument();
+        expect(lastName).toBeInTheDocument();
+        expect(email).toBeInTheDocument();
+        expect(messageDisplay).not.toBeInTheDocument();
+    });
+    
+
 });
 
-// test('renders all fields text when all fields are submitted.', async () => {
-//     render(<ContactForm/>);
-// });
+test('renders all fields text when all fields are submitted.', async () => {
+    render(<ContactForm/>);
+    const firstName = screen.getByLabelText(/First Name*/i);
+    userEvent.type(firstName, "Sooof");
+
+    const lastName = screen.getByLabelText(/Last Name*/i);
+    userEvent.type(lastName, "Gate");
+
+    const email = screen.getByLabelText(/Email*/i);
+    userEvent.type(email, "sooof@me.com");
+  
+    const message = screen.getByLabelText(/Message/i);
+    userEvent.type(message, "Hello");
+    console.log("messageDisplay",message);
+
+    const button = screen.getByRole("button");
+    userEvent.click(button);
+
+    await waitFor(()=> {
+
+
+        expect(firstName).toBeInTheDocument();
+        expect(lastName).toBeInTheDocument();
+        expect(email).toBeInTheDocument();
+        expect(message).toBeInTheDocument();
+    });
+
+});
