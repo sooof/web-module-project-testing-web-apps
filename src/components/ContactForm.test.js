@@ -25,7 +25,7 @@ test('renders ONE error message if user enters less then 5 characters into first
     render(<ContactForm/>)
 
     const firstName = screen.getByLabelText(/First Name*/i);
-    userEvent.type(firstName, "Ray");
+    userEvent.type(firstName, "Sooof");
 
     const lastName = screen.getByLabelText(/Last Name*/i);
     userEvent.type(lastName, "Gate");
@@ -63,25 +63,40 @@ test('renders THREE error messages if user enters no values into any fields.', a
     
 });
 
-// test('renders ONE error message if user enters a valid first name and last name but no email.', async () => {
-//     render(<ContactForm/>);
+test('renders ONE error message if user enters a valid first name and last name but no email.', async () => {
+    render(<ContactForm/>);
 
-//     const firstName1 = screen.getByLabelText(/First Name*/i);
-//     userEvent.type(firstName1, "Ray");
+    const firstName1 = screen.getByLabelText(/First Name*/i);
+    userEvent.type(firstName1, "sooof");
 
-//     const lastName1 = screen.getByLabelText(/Last Name*/i);
-//     userEvent.type(lastName1, "Gate");
+    const lastName1 = screen.getByLabelText(/Last Name*/i);
+    userEvent.type(lastName1, "Gate");
 
-//     const message1 = screen.getByLabelText(/Message/i);
-//     userEvent.type(message1, "Hello");
-//     const errorMessages = await screen.findAllByTestId('error');
-//     // expect(errorMessages).toHaveLength(1);
-//     console.log("Error ",errorMessages.length)
-// });
+    const button = screen.getByRole("button");
+    userEvent.click(button);
+    const errorMessages = await screen.findAllByTestId('error');
+    expect(errorMessages).toHaveLength(1);
+    console.log("Error ",errorMessages.length)
+});
 
 // test('renders "email must be a valid email address" if an invalid email is entered', async () => {
 //     render(<ContactForm/>);
 
+
+//     const firstName = screen.getByLabelText(/First Name*/i);
+//     userEvent.type(firstName, "sooof");
+
+//     const email = screen.getByLabelText(/Email*/i);
+//     userEvent.type(email, "sooof@me.com");
+
+//     const message = screen.getByLabelText(/Message/i);
+//     userEvent.type(message, "Hello");
+
+//     const button = screen.getByRole("button");
+//     userEvent.click(button);
+
+//     const errorMessages = await screen.findAllByTestId('error');
+//     expect(errorMessages).toHaveLength(1);
 // });
 
 // test('renders "lastName is a required field" if an last name is not entered and the submit button is clicked', async () => {
