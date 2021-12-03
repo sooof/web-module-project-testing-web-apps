@@ -22,6 +22,21 @@ test('renders the contact form header', ()=> {
 });
 
 // test('renders ONE error message if user enters less then 5 characters into firstname.', async () => {
+    render(<ContactForm/>)
+    const firstName = screen.getByLabelText(/First Name*/i);
+    userEvent.type(firstName, "Ray");
+
+    const lastName = screen.getByLabelText(/Last Name*/i);
+    userEvent.type(lastName, "Gate");
+
+    const email = screen.getByLabelText(/Email*/i);
+    userEvent.type(email, "sooof@me.com");
+
+    const message = screen.getByLabelText(/Message/i);
+    userEvent.type(message, "Hello");
+
+    const button = screen.getByRole("button");
+    userEvent.click(button);
     
 // });
 
